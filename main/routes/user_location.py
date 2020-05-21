@@ -6,7 +6,7 @@ from ..schemas.user_location import UserLocationSchema
 from ..services.db import DbOperations
 
 
-user_location = mongo.ohio.user_location
+user_location = mongo.ohioh.user_location
 db = DbOperations(collections=user_location, schema=UserLocationSchema)
 
 
@@ -21,6 +21,7 @@ class UserLocationList(Resource):
 
 class UserLocation(Resource):
     def get(self, location_id):
+        j = location_id
         return db.find_one(
             criteria={'location_id': location_id}
         )

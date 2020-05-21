@@ -15,7 +15,7 @@ class DbOperations:
     def find_one(self, criteria):
         record = self.collections.find_one(criteria)
         result = self.schema().load(record) if record is not None else error_message(criteria, 'record not found')
-        return make_response(result)
+        return result
 
     def find_all(self):
         cursor = self.collections.find()
