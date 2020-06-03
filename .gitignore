@@ -4,4 +4,4 @@ settings.json
 .env.example
 .vscode/*
 .env
-
+env
