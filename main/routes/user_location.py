@@ -4,6 +4,7 @@ from main import mongo
 from flask_restful import Resource
 from ..schemas.user_location import UserLocationSchema
 from ..services.db import DbOperations
+from bson.objectid import ObjectId
 
 
 user_location = mongo.ohioh.user_location
@@ -20,20 +21,19 @@ class UserLocationList(Resource):
 
 
 class UserLocation(Resource):
-    def get(self, location_id):
-        j = location_id
+    def get(self, user_id):
         return db.find_one(
-            criteria={'location_id': location_id}
+            criteria={'_id': ObjectId(user_id)}
         )
 
-    def put(self, location_id):
+    def put(self, user_id):
         payload = request.get_json()
         return db.update(
-            criteria={'location_id': location_id},
+            criteria={'_id': ObjectId(user_id)},
             updated_value=payload
         )
 
-    def delete(self, location_id):
+    def delete(self, user_id):
         return db.delete(
-            criteria={'location_id': location_id}
+            criteria={'_id': ObjectId(user_id)}
         )
