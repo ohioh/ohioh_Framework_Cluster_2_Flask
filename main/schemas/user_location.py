@@ -5,6 +5,7 @@ import marshmallow.fields as ms_fields
 
 
 class UserLocationSchema(Schema):
+    user_id = ms_fields.Str()
     location_id = ms_fields.Str()
     date_time = ms_fields.DateTime(default=datetime.datetime.now())
     splitted = ms_fields.Bool()
