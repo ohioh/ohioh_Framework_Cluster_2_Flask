@@ -9,4 +9,4 @@ api = Api(api_bp, prefix='/ohioh/api/v1')
 
 api.add_resource(Beat, '/')
 api.add_resource(UserLocationList, '/user-location')
-api.add_resource(UserLocation, '/user-location/<location_id>')
+api.add_resource(UserLocation, '/user-location/<user_id>')

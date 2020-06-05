@@ -23,17 +23,17 @@ class UserLocationList(Resource):
 class UserLocation(Resource):
     def get(self, user_id):
         return db.find_one(
-            criteria={'user_id': str(user_id)}
+            criteria={'user_id': user_id}
         )
 
     def put(self, user_id):
         payload = request.get_json()
         return db.update(
-            criteria={'user_id': str(user_id)},
+            criteria={'user_id': user_id},
             updated_value=payload
         )
 
     def delete(self, user_id):
         return db.delete(
-            criteria={'user_id': str(user_id)}
+            criteria={'user_id': user_id}
         )
