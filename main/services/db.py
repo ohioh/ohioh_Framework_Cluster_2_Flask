@@ -1,5 +1,6 @@
 from flask import make_response
 from main.resources.message_templates import error_message
+from bson.objectid import ObjectId
 
 
 class DbOperations:
@@ -14,16 +15,17 @@ class DbOperations:
 
     def find_one(self, criteria):
         record = self.collections.find_one(criteria)
-        result = self.schema().load(record) if record is not None else error_message(criteria, 'record not found')
-        return result
+        result = self.schema().dump(record) if record is not None else error_message(criteria, 'Record not found')
+        return make_response(result)
 
     def find_all(self):
         cursor = self.collections.find()
         result = self.schema(many=True).dumps(cursor)
         return make_response(result)
 
-    def update(self, criteria, updated_value):
-        result = self.collections.replace_one(criteria, updated_value, upsert=True).modified_count
+    def update(self, criteria, update):
+        new_value = { "$set": update }
+        result = self.collections.update_one(criteria, new_value, upsert=True).modified_count
         return result
 
     def delete(self, criteria):
