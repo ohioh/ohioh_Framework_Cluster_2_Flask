@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 from marshmallow import Schema, EXCLUDE
 import marshmallow.fields as ms_fields
@@ -6,14 +6,12 @@ import marshmallow.fields as ms_fields
 
 class UserLocationSchema(Schema):
     user_id = ms_fields.Str()
-    location_id = ms_fields.Str()
-    date_time = ms_fields.DateTime(default=datetime.datetime.now())
-    splitted = ms_fields.Bool()
-    accuracy = ms_fields.Float()
-    location_type = ms_fields.Float()
-    longitude = ms_fields.Float()
-    speed = ms_fields.Int()
-    arrival = ms_fields.Bool()
+    user_timestamp = ms_fields.DateTime(default=datetime.now())
+    splitted = ms_fields.Bool(required=False)
+    location_type = ms_fields.Int(required=True)
+    longitude = ms_fields.Float(required=False)
+    speed = ms_fields.Int(required=False)
+    arrival = ms_fields.Bool(required=True)
     
     class Meta:
         unknown = EXCLUDE
