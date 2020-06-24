@@ -9,19 +9,19 @@ class DbOperations:
         self.schema = schema
 
     def insert(self, payload):
-        payload = self.schema().load(payload)
+        payload = self.schema().dump(payload)
         inserted_id = self.collections.insert_one(payload).inserted_id
         return str(inserted_id)
 
     def find_one(self, criteria):
         record = self.collections.find_one(criteria)
-        result = self.schema().dump(record) if record is not None else error_message(criteria, 'Record not found')
+        result = self.schema().load(record) if record is not None else error_message(criteria, 'Record not found')
         return make_response(result)
 
     def find_all(self):
         cursor = self.collections.find()
-        result = self.schema(many=True).dumps(cursor)
-        return make_response(result)
+        result = self.schema().load(cursor, many=True)
+        return result
 
     def update(self, criteria, update):
         new_value = { "$set": update }
